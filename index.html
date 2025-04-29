@@ -2,8 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>¡Sí!</title>
+  <title>¡Dijiste que sí!</title>
   <style>
     body {
       background: linear-gradient(135deg, #ff9a8b, #ff6a88, #ff4f92);
@@ -19,150 +18,99 @@
       font-size: 4em;
       margin-top: 20px;
       animation: brillar 1.5s ease-in-out infinite;
-      color: #fff;
     }
 
     @keyframes brillar {
-      0% {
-        text-shadow: 0 0 20px #ff64a1, 0 0 30px #ff64a1, 0 0 40px #ff64a1;
-      }
-      50% {
-        text-shadow: 0 0 50px #ff64a1, 0 0 70px #ff64a1, 0 0 100px #ff64a1;
-      }
-      100% {
-        text-shadow: 0 0 20px #ff64a1, 0 0 30px #ff64a1, 0 0 40px #ff64a1;
-      }
-    }
-
-    .corazones {
-      position: absolute;
-      top: -100px;
-      left: 50%;
-      animation: corazonesFlotar 10s linear infinite;
-      width: 100px;
-      height: 100px;
-    }
-
-    .corazon {
-      width: 50px;
-      height: 50px;
-      background-color: #ff4f92;
-      clip-path: polygon(50% 0%, 0% 50%, 50% 100%, 100% 50%);
-      animation: moverseCorazon 10s ease-in infinite;
-    }
-
-    @keyframes corazonesFlotar {
-      0% {
-        top: -100px;
-        left: 50%;
-      }
-      100% {
-        top: 100%;
-        left: 50%;
-      }
-    }
-
-    @keyframes moverseCorazon {
-      0% {
-        transform: translateX(-50%) translateY(0);
-      }
-      50% {
-        transform: translateX(50%) translateY(100px);
-      }
-      100% {
-        transform: translateX(-50%) translateY(0);
-      }
-    }
-
-    .mensaje {
-      font-size: 2em;
-      margin-top: 30px;
-      display: none;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      0% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
-      }
+      0% { text-shadow: 0 0 20px #fff, 0 0 30px #ff64a1; }
+      50% { text-shadow: 0 0 50px #fff, 0 0 70px #ff64a1; }
+      100% { text-shadow: 0 0 20px #fff, 0 0 30px #ff64a1; }
     }
 
     .candado {
-      width: 80px;
-      height: 100px;
-      background: url('https://i.imgur.com/s2kBGeu.png') center/cover;
-      margin: 50px auto;
-      position: relative;
+      width: 120px;
+      height: 150px;
+      background: url('candado-cerrado.png') no-repeat center/contain;
+      margin: 40px auto;
+      transition: transform 0.5s ease;
     }
 
     .candado.abierto {
-      background: url('https://i.imgur.com/qh5TzFo.png') center/cover;
+      background: url('candado-abierto.png') no-repeat center/contain;
+      transform: rotate(-15deg) scale(1.1);
     }
 
     .llave {
-      width: 40px;
-      height: 40px;
-      background-color: #ff4f92;
-      clip-path: circle(50%);
+      width: 80px;
+      height: 80px;
+      background: url('llave.png') no-repeat center/contain;
+      margin: 30px auto;
+      cursor: grab;
+    }
+
+    .mensaje {
+      display: none;
+      font-size: 1.8em;
+      margin-top: 40px;
+      animation: aparecer 2s ease forwards;
+    }
+
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Corazones flotantes */
+    .corazon {
       position: absolute;
-      top: 200px;
-      left: 50%;
-      margin-left: -20px;
-      cursor: pointer;
-      z-index: 2;
+      width: 30px;
+      height: 30px;
+      background: url('corazon.png') no-repeat center/contain;
+      animation: flotar 6s linear infinite;
+      opacity: 0.8;
     }
 
-    .llave:active {
-      background-color: #ff6a88;
+    @keyframes flotar {
+      0% {
+        transform: translateY(100vh) scale(0.8) rotate(0deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.2) rotate(360deg);
+        opacity: 0;
+      }
     }
 
-    .key-container {
+    /* Estrellitas */
+    .estrella {
       position: absolute;
-      top: 400px;
-      left: 50%;
-      margin-left: -40px;
+      width: 10px;
+      height: 10px;
+      background: radial-gradient(white, transparent);
+      border-radius: 50%;
+      animation: brillarEstrella 2s infinite ease-in-out;
     }
 
-    button {
-      padding: 15px 30px;
-      font-size: 1.2em;
-      margin-top: 50px;
-      background-color: #ff6a88;
-      color: white;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
+    @keyframes brillarEstrella {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.4); }
     }
-
-    button:hover {
-      background-color: #ff4f92;
-      transform: scale(1.1);
-    }
-
   </style>
 </head>
 <body>
 
-  <!-- Animación de Corazones -->
-  <div class="corazones">
-    <div class="corazon"></div>
-  </div>
-
   <h1>¡Dijiste que sí! 💖</h1>
 
-  <div class="candado" id="candado"></div>
-
-  <div class="key-container">
-    <div class="llave" id="llave" draggable="true" ondragstart="drag(event)"></div>
+  <div id="zona-candado" ondragover="permitirSoltar(event)" ondrop="soltarLlave(event)">
+    <div id="candado" class="candado"></div>
   </div>
 
-  <div class="mensaje" id="mensaje">
-    <p>Mi amor, esto es solo el comienzo de un gran camino juntas. 💌</p>
+  <div id="llave" class="llave" draggable="true" ondragstart="empezarArrastre(event)"></div>
+
+  <div id="mensaje" class="mensaje">
+    <p>Mi amor, gracias por decir que sí 💌</p>
     <p>Despues de todo este follon de paginas y juegos que espero hayas disfrutado jsjsjs ya estoy completamente
       feliz y orgullosa de poder decir que eres mi pareja,mi novia aaaaaaaaaaa no sabes que emocion me da por fin 
       formalizar,Ally tratare de llenarte de felicidad los dias y dare todo lo que tenga en mis manos para que esto
@@ -176,36 +124,50 @@
       tan amada y tomas el amor que te doy con tanto cariño y cuidado que quiero ser vulnerable contigo.Jamas le di...  
       llamemosle "privilegio" a alguien antes, porque me da miedo que utilicen mis problemas o miedos en mi contra pero pues
       se que puedo confiar en ti.De todas formas mi vida solo quiero que sepas que realmente estoy muy feliz de que estemos
-      juntas.Eres la mejor, te amo mucho mi doña pupas muaaaaaak 💋></este></p>
+      juntas.Eres la mejor, te amo mucho mi doña pupas muaaaaaak 💋💕</p>
   </div>
 
   <audio autoplay loop>
     <source src="si.mp3" type="audio/mpeg">
   </audio>
 
+  <!-- corazones -->
   <script>
-    let candado = document.getElementById('candado');
-    let llave = document.getElementById('llave');
-    let mensaje = document.getElementById('mensaje');
+    for (let i = 0; i < 20; i++) {
+      const corazon = document.createElement("div");
+      corazon.className = "corazon";
+      corazon.style.left = Math.random() * 100 + "vw";
+      corazon.style.animationDelay = (Math.random() * 6) + "s";
+      document.body.appendChild(corazon);
+    }
 
-    // Función de arrastre para la llave
-    function drag(ev) {
+    for (let i = 0; i < 50; i++) {
+      const estrella = document.createElement("div");
+      estrella.className = "estrella";
+      estrella.style.left = Math.random() * 100 + "vw";
+      estrella.style.top = Math.random() * 100 + "vh";
+      estrella.style.animationDelay = Math.random() * 3 + "s";
+      estrella.style.width = estrella.style.height = (Math.random() * 3 + 2) + "px";
+      document.body.appendChild(estrella);
+    }
+
+    function empezarArrastre(ev) {
       ev.dataTransfer.setData("text", ev.target.id);
     }
 
-    // Función de colocar la llave en el candado
-    candado.ondragover = function(ev) {
+    function permitirSoltar(ev) {
       ev.preventDefault();
     }
 
-    candado.ondrop = function(ev) {
+    function soltarLlave(ev) {
       ev.preventDefault();
-      let data = ev.dataTransfer.getData("text");
-      if (data === "llave") {
-        candado.classList.add("abierto"); // Abrir el candado
-        mensaje.style.display = "block";  // Mostrar el mensaje
-        llave.style.display = "none";  // Ocultar la llave
-      }
+      const candado = document.getElementById("candado");
+      const llave = document.getElementById("llave");
+      const mensaje = document.getElementById("mensaje");
+
+      candado.classList.add("abierto");
+      llave.style.display = "none";
+      mensaje.style.display = "block";
     }
   </script>
 
